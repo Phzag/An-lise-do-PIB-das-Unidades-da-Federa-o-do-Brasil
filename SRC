@@ -1,0 +1,42 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from mpl_toolkits.mplot3d import Axes3D
+import plotly.express as px
+
+# Dados do PIB das Unidades da Federação em 2021
+data = {
+    'Unidade da Federação': ['Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 
+                             'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 
+                             'Minas Gerais', 'Paraná', 'Paraíba', 'Pará', 'Pernambuco', 'Piauí', 
+                             'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul', 'Rondônia', 
+                             'Roraima', 'Santa Catarina', 'Sergipe', 'São Paulo', 'Tocantins'],
+    'PIB (milhões de R$)': [21374, 76266, 20100, 131531, 352618, 194885, 286944, 186337, 269628, 124981, 
+                            233390, 142204, 857593, 549973, 77470, 262905, 220814, 64028, 949301, 80181, 
+                            581284, 58170, 18203, 428571, 51861, 2719751, 51781]
+}
+
+# Criação do DataFrame
+df = pd.DataFrame(data)
+
+# Gráfico de barras com Seaborn
+plt.figure(figsize=(15, 8))
+sns.barplot(x='PIB (milhões de R$)', y='Unidade da Federação', data=df, palette='viridis')
+plt.title('PIB das Unidades da Federação do Brasil em 2021')
+plt.xlabel('PIB (milhões de R$)')
+plt.ylabel('Unidade da Federação')
+plt.show()
+
+# Gráfico de dispersão 3D com Matplotlib
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(df['PIB (milhões de R$)'], df.index, df['PIB (milhões de R$)'], c='r', marker='o')
+ax.set_xlabel('PIB (milhões de R$)')
+ax.set_ylabel('Unidade da Federação')
+ax.set_zlabel('PIB (milhões de R$)')
+plt.title('Gráfico de Dispersão 3D do PIB das Unidades da Federação')
+plt.show()
+
+# Gráfico interativo com Plotly
+fig = px.bar(df, x='Unidade da Federação', y='PIB (milhões de R$)', title='PIB das Unidades da Federação do Brasil em 2021')
+fig.show()
